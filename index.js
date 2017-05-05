@@ -29,7 +29,7 @@ let options = {
 tmp.dir({unsafeCleanup:true}, (err, path) => {
   if (err) throw err;
 
-  let imgPath = path + '/' + out + '.png';
+  let imgPath = path + '/' + name + '.png';
   fs.writeFileSync(imgPath, glyph.data);
   options.dir = path;
   options.imgPath = imgPath;

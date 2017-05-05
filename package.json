@@ -1,0 +1,19 @@
+{
+  "name": "Emoji Wiggler",
+  "version": "0.1.0",
+  "description": "It grabs emoji from the Apple Color Emoji font and wiggles them using Imagemagick's liquid resize",
+  "main": "index.js",
+  "scripts": {},
+  "author": {
+    "name": "Ben Miller",
+    "url": "thebenmiller.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "fontkit": "^1.5.8",
+    "lodash.defaults": "^4.2.0",
+    "minimist": "^1.2.0",
+    "node-emoji": "^1.5.1",
+    "tmp": "0.0.31"
+  }
+}

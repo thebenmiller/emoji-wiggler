@@ -15,7 +15,7 @@ The font file `Apple Color Emoji.ttc` in the root directory of the project.
 ### Flags
 
 * `-e` or `--emoji`: paste in any emoji to wiggle
-* `-n` or `name`: the output file name
+* `-n` or `--name`: the output file name
 
 The gif distortion cycles from a maximum to minumum to maximum scale factor. 
 

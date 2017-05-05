@@ -1,6 +1,8 @@
 # emoji-wiggler
 It grabs emoji from the Apple Color Emoji font and wiggles them using Imagemagick's liquid resize
 
+![Wiggly Joy Face](/examples/joy.gif?raw=true "Wiggly Joy Face")
+
 ### Dependencies
 [Imagemagick](https://www.imagemagick.org/script/index.php) with the http://liblqr.wikidot.com/ library.
 

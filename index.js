@@ -1,35 +1,35 @@
 const fs = require('fs');
 const fontkit = require('fontkit');
-const emoji = require('node-emoji');
+const nodeEmoji = require('node-emoji');
 const tmp = require('tmp');
 const font = fontkit.openSync('./Apple Color Emoji.ttc').fonts[0];
 const argv = require('minimist')(process.argv.slice(2));
 
 const wiggle = require('./wiggle');
 
-const emo = (argv.e || argv.emoji || emoji.random().emoji);
-const name = (argv.n || argv.name || emoji.which(emo) || 'emoji');
+const emoji = (argv.e || argv.emoji || nodeEmoji.random().emoji);
+const name = (argv.n || argv.name || nodeEmoji.which(emoji) || 'emoji');
 
-let run = font.layout(emo);
-let glyph = run.glyphs[0].getImageForSize(160);
+const run = font.layout(emoji);
+const glyph = run.glyphs[0].getImageForSize(160);
 
-if(glyph == null)
-  return console.error('Emoji not found: '+emo);
+if(!glyph)
+  return console.error(`Emoji not found: ${emoji}`);
 
-let options = {
+const options = {
   minScale:argv.min,
   maxScale:argv.max,
   frames:argv.frames,
+  emoji,
   name,
   dir:'',
-  imgPath:'',
-  emo
+  imgPath:''
 }
 
 tmp.dir({unsafeCleanup:true}, (err, path) => {
   if (err) throw err;
 
-  let imgPath = path + '/' + name + '.png';
+  let imgPath = `${path}/${name}.png`;
   fs.writeFileSync(imgPath, glyph.data);
   options.dir = path;
   options.imgPath = imgPath;

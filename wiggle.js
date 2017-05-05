@@ -1,25 +1,24 @@
 const fs = require('fs');
 const _defaults = require('lodash.defaults');
-const pad = require('./pad');
+const padZeros = require('./padZeros');
 const childProcessPromise = require('./childProcessPromise');
 
-let defaults = {
+const defaults = {
   minScale:70,
   maxScale:200,
   frames:30,
-  name:undefined,
-  dir:undefined,
-  imgPath:undefined
+  name:null,
+  dir:null,
+  imgPath:null,
+  emoji:null
 }
 
 function wiggle(options){
   _defaults(options, defaults);
   Promise.all( processImage(options) )
-  .then(()=>{ processGif(options) })
-  .then(()=>{ console.log(options.emo+'  saved: '+__dirname+'/'+options.name+'.gif'); })
-  .catch(err => {
-    console.error(err);
-  });
+    .then(()=>{ processGif(options) })
+    .then(()=>{ console.log(`${options.emoji}  saved: ${__dirname}/${options.name}.gif`); })
+    .catch(console.error);
 }
 
 function processImage(opts){
@@ -29,18 +28,17 @@ function processImage(opts){
   for(let i=0; i<opts.frames; i++){
     let pos = step(i, initial, opts.frames);
     let scale = opts.minScale + pos * (opts.maxScale - opts.minScale);
-    let output = opts.dir + '/' + opts.name + '_frame_' + pad(i, opts.frames) + '.png';
-    let command = 'convert ' + opts.imgPath
-                  + ' -liquid-rescale ' + scale + '%x' + scale + '% -scale 320x320\! '
-                  + output;
+    let output = `${opts.dir}/${opts.name}_frame_${padZeros(i, opts.frames)}.png`;
+    let command = `convert ${opts.imgPath} -liquid-rescale ${scale}%x${scale}% `+
+                  `-scale 320x320\! ${output}`;
     promises.push(childProcessPromise(command));
   }
   return promises;
 }
 
 function processGif(opts){
-  let input = opts.dir + '/' + opts.name + '_frame_*.png';
-  let command = 'convert -delay 5 -loop 0 -background white -alpha remove ' + input +' ' + opts.name+'.gif';
+  let input = `${opts.dir}/${opts.name}_frame_*.png`;
+  let command = `convert -delay 5 -loop 0 -background white -alpha remove ${input} ${opts.name}.gif`;
   childProcessPromise(command);
 }
 

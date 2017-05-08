@@ -34,5 +34,4 @@ The gif distortion cycles from a maximum to minumum to maximum scale factor.
 ### TODO
 
 * multiple emoji sets (Google Noto, Twitter, EmojiOne)
-* change size of final output
 * better step [shaping functions](www.flickr.com/photos/kynd/9546075099/)

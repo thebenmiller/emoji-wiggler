@@ -9,6 +9,8 @@ const wiggle = require('./wiggle');
 
 const emoji = (argv.e || argv.emoji || nodeEmoji.random().emoji);
 const name = (argv.n || argv.name || nodeEmoji.which(emoji) || 'emoji');
+const frames = (argv.f || argv.frames);
+const size = (argv.s || argv.size);
 
 const run = font.layout(emoji);
 const glyph = run.glyphs[0].getImageForSize(160);
@@ -19,9 +21,10 @@ if(!glyph)
 const options = {
   minScale:argv.min,
   maxScale:argv.max,
-  frames:argv.frames,
+  frames,
   emoji,
   name,
+  size,
   dir:'',
   imgPath:''
 }

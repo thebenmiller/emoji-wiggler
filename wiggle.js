@@ -7,6 +7,7 @@ const defaults = {
   minScale:70,
   maxScale:200,
   frames:30,
+  size:'320x320',
   name:null,
   dir:null,
   imgPath:null,
@@ -30,7 +31,7 @@ function processImage(opts){
     let scale = opts.minScale + pos * (opts.maxScale - opts.minScale);
     let output = `${opts.dir}/${opts.name}_frame_${padZeros(i, opts.frames)}.png`;
     let command = `convert ${opts.imgPath} -liquid-rescale ${scale}%x${scale}% `+
-                  `-scale 320x320\! ${output}`;
+                  `-scale ${opts.size}\! ${output}`;
     promises.push(childProcessPromise(command));
   }
   return promises;
